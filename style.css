@@ -1,0 +1,21 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+.logo{
+    width: 7%;
+    height: 7%;
+}
+
+.card-img-top{
+    width: 100% !important;
+    height: 200px !important;
+    object-fit: contain;
+}
+
+.admin_img{
+    width: 100% !important;
+    object-fit: contain;
+}
