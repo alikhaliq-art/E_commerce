@@ -16,54 +16,62 @@ include('../function/common_functions.php');
 
     <title>Registeration Form</title>
 </head>
-<body class="bg-light">
-    <div class="container">
-           <h1 class="text-center my-3">New Registeration</h1>
-        <form action="" method="post" enctype="multipart/form-data">
-            <div class="my-3 form-outline w-50 m-auto">
-            <label for="user_username" class="form-label">Username</label>
-            <input type="text" class="form-control" id="user_username" placeholder=" Enter your username" name="user_username" autocomplete="off" required="required">
+<body>
+    <div class="container-fluid m-3">
+           <h1 class="text-center my-3 text-info">New Registeration</h1>
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-lg6 col-md-6">
+            <img src="../images/register.jpg" alt="registeration" class="img-fluid">
             </div>
+            <div class="col-lg6 col-md-6">
+                    <form action="" method="post" enctype="multipart/form-data">
+                    <div class="my-3 form-outline w-50 m-auto">
+                    <label for="user_username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="user_username" placeholder=" Enter your username" name="user_username" autocomplete="off" required="required">
+                    </div>
 
-            <div class="my-3 form-outline w-50 m-auto">
-            <label for="user_email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="user_email" placeholder=" Enter your Email" name="user_email" autocomplete="off" required="required">
+                    <div class="my-3 form-outline w-50 m-auto">
+                    <label for="user_email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="user_email" placeholder=" Enter your Email" name="user_email" autocomplete="off" required="required">
+                    </div>
+
+                    <div class="my-3 form-outline w-50 m-auto">
+                    <label for="user_image" class="form-label">Profile</label>
+                    <input type="file" class="form-control" id="user_image" name="user_image" required="required">
+                    </div>
+
+                    <div class="my-3 form-outline w-50 m-auto">
+                        <label for="user_address" class="form-label">Address</label>
+                        <input class="form-control" type="text" id="user_address" name="user_address" required="required" placeholder=" Enter your address" >
+                    </div>
+
+                    <div class="my-3 form-outline w-50 m-auto">
+                        <label for="user_mobile" class="form-label">Mobile</label>
+                        <input class="form-control" type="text" id="user_mobile" name="user_mobile" required="required" placeholder=" Enter your mobile number" >
+                    </div>
+
+                    <div class="my-3 form-outline w-50 m-auto">
+                        <label for="user_password" class="form-label">Password</label>
+                        <input class="form-control" type="password" id="user_password" name="user_password" required="required" placeholder=" Enter your password" >
+                    </div>
+
+                    <div class="my-3 form-outline w-50 m-auto">
+                    <label for="user_conf_password" class="form-label">Confirm Passwod</label>
+                    <input type="password" class="form-control" id="user_conf_password" placeholder="Confirm Password" name="user_conf_password" required="required">
+                    </div>
+
+                    <div class="my-3 form-outline w-50 m-auto">
+                    <input type="submit" class="btn btn-info" id="user_register" name="user_register" value="Register">
+                    </div>
+
+                    <div class="my-3 form-outline w-50 m-auto">
+                    <p class="small my-2 fw-bold">Already have an account ? <a href="user_login.php" class="text-danger"> Login</a></p>
+                    </div>
+
+            </form>
             </div>
-
-            <div class="my-3 form-outline w-50 m-auto">
-            <label for="user_image" class="form-label">Profile</label>
-            <input type="file" class="form-control" id="user_image" name="user_image" required="required">
-            </div>
-
-            <div class="my-3 form-outline w-50 m-auto">
-                <label for="user_address" class="form-label">Address</label>
-                <input class="form-control" type="text" id="user_address" name="user_address" required="required" placeholder=" Enter your address" >
-            </div>
-
-            <div class="my-3 form-outline w-50 m-auto">
-                <label for="user_mobile" class="form-label">Mobile</label>
-                <input class="form-control" type="text" id="user_mobile" name="user_mobile" required="required" placeholder=" Enter your mobile number" >
-            </div>
-
-            <div class="my-3 form-outline w-50 m-auto">
-                <label for="user_password" class="form-label">Password</label>
-                <input class="form-control" type="password" id="user_password" name="user_password" required="required" placeholder=" Enter your password" >
-            </div>
-
-            <div class="my-3 form-outline w-50 m-auto">
-            <label for="user_conf_password" class="form-label">Confirm Passwod</label>
-            <input type="password" class="form-control" id="user_conf_password" placeholder="Confirm Password" name="user_conf_password" required="required">
-            </div>
-
-            <div class="my-3 form-outline w-50 m-auto">
-            <input type="submit" class="btn btn-info" id="user_register" name="user_register" value="Register">
-            </div>
-
-            <div class="my-3 form-outline w-50 m-auto">
-            <p class="small my-2 fw-bold">Already have an account ? <a href="user_login.php" class="text-danger"> Login</a></p>
-            </div>
-
-    </form>
+        </div>
+        
     </div>
 </body>
 </html>

@@ -2,6 +2,21 @@
 include('./includes/connect.php');
 include('./function/common_functions.php');
 session_start();
+global $_con;
+    $ip = getIPAddress();
+    
+if(isset($_POST['update_cart_submission'])){
+    // print_r($_POST);
+    $pid = $_POST['pid'];
+    $update_cart = "UPDATE `cart_details` SET quantity=".$_POST['qty_'.$pid]." WHERE ip_address='$ip' AND product_id=$pid";
+    mysqli_query($_con, $update_cart);
+}
+if(isset($_POST['remove_cart_submission'])){
+    $pid = $_POST['pid'];
+    // Delete the item from the cart
+    $delete_cart_item = "DELETE FROM `cart_details` WHERE ip_address='$ip' AND product_id=$pid";
+    mysqli_query($_con, $delete_cart_item);
+}
 ?>
 
 <!doctype html>
@@ -12,14 +27,14 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cart Detail</title>
 
-    <!-- <link rel="stylesheet" href="style.css"> -->
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
 
     <link rel="stylesheet" href="style.css">
     <style>
@@ -108,8 +123,6 @@ session_start();
             <div class="row">
 <form action="" method="post">
     <?php
-    global $_con;
-    $ip = getIPAddress();
     $select_query = "SELECT * FROM `cart_details` WHERE ip_address = '$ip'";
     $result_query = mysqli_query($_con, $select_query);
     $num_rows = mysqli_num_rows($result_query);
@@ -121,7 +134,7 @@ session_start();
         </div>";
     } else {
         ?>
-        <table class="table table-striped table-bordered text-center">
+        <table class="table table-striped table-bordered text-center" id="myTable">
             <thead>
                 <tr>
                     <th scope="col">Product Name</th>
@@ -139,7 +152,7 @@ session_start();
                 $total_price = 0;
                 $select_query = "SELECT * FROM `cart_details` WHERE ip_address = '$ip'";
                 $result_query = mysqli_query($_con, $select_query);
-
+                $pro_sub_total = 0;
                 while ($row = mysqli_fetch_array($result_query)) {
                     $product_id = $row['product_id'];
                     $select_products = "SELECT * FROM `products` WHERE product_id=$product_id";
@@ -155,28 +168,33 @@ session_start();
                         ?>
 
                         <tr>
-                            <th scope='row'><?php echo $product_title ?></th>
+                        <form method="post">
+                            <td scope='row'><?php echo $product_title ?></td>
                             <td><img src='./admin_panel/product_image/<?php echo $product_image1 ?>' class='cart_img' alt=''></td>
                             <td>
                                 <!-- Set initial value to 1 -->
                                 <input type='number' value='<?php echo max(1, $quantity); ?>' name='qty_<?php echo $product_id ?>'>
                             </td>
                             <td><strong><?php echo $product_price ?></strong></td>
-                            <td><strong><?php echo $total_price ?></strong></td>
+                            <td><strong><?php echo $product_price * $quantity ?></strong></td>
                             <td>
-                                <input type='hidden' name='' value=''>
-                                <input class='btn btn-success mx-2' type='submit' value='Update' name='update_cart_<?php echo $product_id ?>'>
-                                <input class='btn btn-danger mx-2' type='submit' value='Remove' name='remove_cart_<?php echo $product_id ?>'>
+                                <input type='hidden' name='pid' value='<?=$product_id?>'>
+                                <input class='btn btn-success mx-2' type='submit' value='Update' name='update_cart_submission'>
+                                <input class='btn btn-danger mx-2' type='submit' value='Remove' name='remove_cart_submission'>
+            
                             </td>
+                            </form>
                         </tr>
                 <?php }} ?>
             </tbody>
         </table>
 
         <div class="d-flex my-4">
-            <h4 class="px-3">Sub-total: <strong class="text-primary"><?php echo $total_price; ?></strong>/-</h4>
+            <h4 class="px-3">Total: <strong class="text-primary"><?php echo $total_price; ?></strong>/-</h4>
+            <form method="post">
             <input name='continue' value='Continue shopping' class='btn btn-info mx-3' type='submit'></input>
             <input name='checkout' value='Checkout' class='btn btn-dark btn-outline' type='submit'></input>
+            </form>
         </div>
         <?php
     }
@@ -188,28 +206,7 @@ session_start();
     if (isset($_POST['checkout'])) {
         echo "<script>window.open('./user_area/checkout.php', '_self')</script>";
     }
-
-    foreach ($_POST as $key => $value) {
-        if (strpos($key, 'update_cart_') !== false) {
-            $product_id = substr($key, strlen('update_cart_'));
-            $quantity = $_POST['qty_' . $product_id];
-
-            $update_cart = "UPDATE `cart_details` SET quantity=$quantity WHERE ip_address='$ip' AND product_id=$product_id";
-            mysqli_query($_con, $update_cart);
-        }
-    }
-
-foreach ($_POST as $key => $value) {
-    if (strpos($key, 'update_cart_') !== false) {
-    } elseif (strpos($key, 'remove_cart_') !== false) {
-        $product_id = substr($key, strlen('remove_cart_'));
-
-        $remove_cart = "DELETE FROM `cart_details` WHERE ip_address='$ip' AND product_id=$product_id";
-        mysqli_query($_con, $remove_cart);
-    }
-}
     ?>
-</form>
 
 
 
@@ -231,10 +228,14 @@ foreach ($_POST as $key => $value) {
 
 
 
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable();
+        });
+    </script>
 </body>
 
-</html>
+</html>   

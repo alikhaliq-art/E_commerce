@@ -141,11 +141,14 @@ session_start();
                 </div>
                 <div class="col-md-10">
                     <?php get_pending_orders();
+                    if (isset($_GET['my-orders'])) {
+                        include('my_order.php');
+                    }
                     if (isset($_GET['edit-account'])) {
                         include('edit_account.php');
                     }
-                    if (isset($_GET['my-orders'])) {
-                        include('my_order.php');
+                    if (isset($_GET['delete-account'])) {
+                        include('delete_account.php');
                     }
                     
                     

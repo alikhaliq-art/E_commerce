@@ -36,7 +36,7 @@ include('../function/common_functions.php');
             <a href="http://www.paypal.com" target="_blank" rel="noopener noreferrer"><img src="../images/payment.png" alt="payment" class="upi"></a>
         </div>
         <div class="col-md-6">
-            <a href="order.php?user_id=<?php echo $user_id ?>"><h2 class="text-center">Pay Offline</h2></a>
+            <a href="order_pending.php?user_id=<?php echo $user_id ?>"><h2 class="text-center">Pay Offline</h2></a>
         </div>
     </div>
 

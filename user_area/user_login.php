@@ -17,30 +17,38 @@ include('../function/common_functions.php');
 
     <title>Login Form</title>
 </head>
-<body class="bg-light">
-    <div class="container">
-           <h1 class="text-center my-3">User Login</h1>
-        <form action="" method="post" enctype="multipart/form-data">
+<body>
+    <div class="container-fluid m-3">
+           <h1 class="text-center my-3 text-info">User Login</h1>
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-lg-6 col-md-6">
+                <form action="" method="post" enctype="multipart/form-data">
 
-            <div class="my-3 form-outline w-50 m-auto">
-            <label for="user_username" class="form-label">Username</label>
-            <input type="text" class="form-control" id="user_username" placeholder=" Enter your username" name="user_username" autocomplete="off" required="required">
+                <div class="my-3 form-outline w-50 m-auto">
+                <label for="user_username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="user_username" placeholder=" Enter your username" name="user_username" autocomplete="off" required="required">
+                </div>
+
+                <div class="my-3 form-outline w-50 m-auto">
+                    <label for="user_password" class="form-label">Password</label>
+                    <input class="form-control" type="password" id="user_password" name="user_password" required="required" placeholder=" Enter your password" >
+                </div>
+
+                <div class="my-3 form-outline w-50 m-auto">
+                <input type="submit" class="btn btn-info" id="user_login" name="user_login" value="Login">
+                </div>
+
+                <div class="my-3 form-outline w-50 m-auto">
+                <p class="small my-2 fw-bold">Don't have an account ? <a href="user_registeration.php" class="text-danger"> Register</a></p>
+                </div>
+
+                </form>
             </div>
-
-            <div class="my-3 form-outline w-50 m-auto">
-                <label for="user_password" class="form-label">Password</label>
-                <input class="form-control" type="password" id="user_password" name="user_password" required="required" placeholder=" Enter your password" >
+            <div class="col-lg-6 col-md-6">
+                <img src="../images/login.jpg" alt="login" class="img-fluid">
             </div>
-
-            <div class="my-3 form-outline w-50 m-auto">
-            <input type="submit" class="btn btn-info" id="user_login" name="user_login" value="Login">
-            </div>
-
-            <div class="my-3 form-outline w-50 m-auto">
-            <p class="small my-2 fw-bold">Don't have an account ? <a href="user_registeration.php" class="text-danger"> Register</a></p>
-            </div>
-
-    </form>
+        </div>
+        
     </div>
 </body>
 </html>
